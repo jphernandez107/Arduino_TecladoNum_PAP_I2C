@@ -1,20 +1,33 @@
+#include "arduino.h";
+
+
 class OpticalSensor{
-  private:
-      int mPin;
-      bool mStatus = false;
-    public:
-      OpticalSensor(int);
-      bool getStatus();
+  	private:
+      	int mPin;
+      	bool mStatus = false;
+  	public:
+      	OpticalSensor(int);
+      	bool getStatus();
 };
 
 OpticalSensor::OpticalSensor(int pin) {
-  mPin = pin;
+  	mPin = pin;
 }
 
 bool OpticalSensor::getStatus() {
   // TODO: analog read, store status in variable mStatus...
+
+	int sensorValue = analogRead(mPin);
+	float voltage = sensorValue * (5.0 / 1023.0);
+
+	if((voltage >= 0.21) && (voltage <= 4.8)){
+    	mStatus == true;
+    }
+  	else{
+    	mStatus == false;
+    }
   
-  return mStatus;
+  	return mStatus;
 }
   
   
