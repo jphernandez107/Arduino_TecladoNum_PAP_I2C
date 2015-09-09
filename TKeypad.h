@@ -1,4 +1,4 @@
-#include "LcdDisplay.cpp"
+#include "LcdDisplay.h"
 #include "Keypad.h"
 
 #define INPUT_CHAR_NUMBER 3
