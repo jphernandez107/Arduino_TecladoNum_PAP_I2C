@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-=======
+
 #ifndef LcdDisplay_h
 #define LcdDisplay_h
->>>>>>> origin/master
 
 #include <LiquidCrystal_I2C.h>
 
@@ -18,8 +16,6 @@ class LcdDisplay {
     LcdDisplay();
     void print(String msg1, String msg2);
 };
-<<<<<<< HEAD
-=======
+
 
 #endif
->>>>>>> origin/master
