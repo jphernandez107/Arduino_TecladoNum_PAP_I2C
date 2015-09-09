@@ -1,8 +1,8 @@
 #include "TKeypad.h"
 
-//Keypad keypad = Keypad;
-TKeypad::TKeypad(LcdDisplay lcdDisplay) : mKeyPad(makeKeymap(teclas), pinFilas, pinColumnas, 4, 3 ) {
+TKeypad::TKeypad(LcdDisplay *lcdDisplay, Keypad *keypad) {
   mLcdDisplay = lcdDisplay;
+  mKeypad = keypad;
   
 }
 
@@ -12,8 +12,8 @@ String TKeypad::getInput() {
   char lastChar = 'z';
   
   while(count < INPUT_CHAR_NUMBER + 1 && mLastChar != mEndChar ) {
-    mLcdDisplay.print("Enter digits:", result);
-    mLastChar = mKeyPad.getKey();
+    mLcdDisplay->print("Enter digits:", result);
+    mLastChar = mKeypad->getKey();
     result += mLastChar; 
   }
 
