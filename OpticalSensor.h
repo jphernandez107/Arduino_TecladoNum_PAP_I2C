@@ -1,3 +1,7 @@
+#ifndef OpticalSensor_h
+#define OpticalSensor_h
+
+
 #include "Arduino.h"
 
 
@@ -9,3 +13,5 @@ class OpticalSensor{
       	OpticalSensor(int);
       	bool getStatus();
 };
+
+#endif
