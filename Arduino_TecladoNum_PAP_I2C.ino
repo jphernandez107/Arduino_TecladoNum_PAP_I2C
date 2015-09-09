@@ -1,11 +1,20 @@
+#include <LiquidCrystal_I2C.h>
+#include "Keypad.h"
+#include "OpticalSensor.h"
+#include "Motor.h"
+#include "LcdDisplay.h"
 
+#define PIN_SENSOR1 0
+
+OpticalSensor sensor1(PIN_SENSOR1);
+Motor motor1();
 
 void setup() {
   
 }
 
 void loop() {
-    readKeypad();    
+       
 }
 
 

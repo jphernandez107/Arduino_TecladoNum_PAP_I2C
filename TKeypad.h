@@ -1,3 +1,6 @@
+#ifndef TKeypad_h
+#define TKeypad_h
+
 #include "LcdDisplay.h"
 #include "Keypad.h"
 
@@ -21,3 +24,5 @@ class TKeypad{
     TKeypad(LcdDisplay);
     String getInput();
 };
+
+#endif
