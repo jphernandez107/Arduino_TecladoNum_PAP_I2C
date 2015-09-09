@@ -1,3 +1,4 @@
+
 #include "LcdDisplay.h"
 
 LcdDisplay::LcdDisplay() : mLcd(TYPE,COLS,ROWS) {

@@ -32,14 +32,10 @@ void setup() {
 }
 
 void loop() {
+
    String input = tKeypad.getInput();
-   
+
 }
-
-
-//#include <LiquidCrystal_I2C.h>
-//#include <Wire.h>
-//#include "Keypad.h"
 //
 //LiquidCrystal_I2C lcd(0x27,16,2);
 //
