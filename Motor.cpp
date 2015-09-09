@@ -1,3 +1,1 @@
-class Motor{
-  
-  };
+#include "Motor.h"

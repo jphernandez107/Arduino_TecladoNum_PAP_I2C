@@ -1,14 +1,4 @@
-#include "arduino.h";
-
-
-class OpticalSensor{
-  	private:
-      	int mPin;
-      	bool mStatus = false;
-  	public:
-      	OpticalSensor(int);
-      	bool getStatus();
-};
+#include "OpticalSensor.h"
 
 OpticalSensor::OpticalSensor(int pin) {
   	mPin = pin;
