@@ -1,3 +1,14 @@
+
+
+void setup() {
+  
+}
+
+void loop() {
+    readKeypad();    
+}
+
+
 //#include <LiquidCrystal_I2C.h>
 //#include <Wire.h>
 //#include "Keypad.h"
