@@ -1,15 +1,17 @@
 #include <LiquidCrystal_I2C.h>
 
+#define TYPE 0x27
+#define COLS 16
+#define ROWS 2
 
 class LcdDisplay {
   private:
-    LiquidCrystal_I2C *mLcd;
+    LiquidCrystal_I2C mLcd;
   public:
-    LcdDisplay(LiquidCrystal_I2C *lcd);
+    LcdDisplay();
 };
 
-LcdDisplay::LcdDisplay(LiquidCrystal_I2C *lcd) {
-  mLcd = lcd;
+LcdDisplay::LcdDisplay() : mLcd(TYPE,COLS,ROWS) {
 }
 
 
