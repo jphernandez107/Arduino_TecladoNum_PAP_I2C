@@ -4,6 +4,8 @@
 
 LiquidCrystal_I2C lcd(0x27,16,2);
 
+//LcdDisplay LcdDisplay(&lcd);
+
 // keypad type definition
 const byte filas = 4; //four rows
 const byte columnas = 3; //three columns
