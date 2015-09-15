@@ -7,33 +7,25 @@
 #include <Wire.h>
 
 #define PIN_SENSOR1 0
-
-// Tenemos que mover esta mierda afuera de aca
-
-  
-    char teclas[4][3] =
- {{'1','2','3'},
-  {'4','5','6'},
-  {'7','8','9'},
-  {'*','0','#'}};
-  byte pinFilas[4] = {8, 9, 10, 11}; //connect to the row pinouts of the keypad
-  byte pinColumnas[3] = {5, 6, 7}; // connect to the column pinouts of the keypad
-  Keypad mKeypad(makeKeymap(teclas), pinFilas, pinColumnas, 4, 3 );
-
+#define DEBUG_FLAG 1
 
 OpticalSensor sensor1(PIN_SENSOR1);
-Motor motor1();
-LcdDisplay *lcdDisplay = new LcdDisplay();
-TKeypad tKeypad(lcdDisplay, &mKeypad);
+Motor motor1(&sensor1);
+LcdDisplay *lcdDisplay = new LcdDisplay(true);
+TKeypad tKeypad(lcdDisplay, true);
 
 
 void setup() {
-
+// debug
+Serial.begin(9600);
 }
 
 void loop() {
 
    String input = tKeypad.getInput();
+   // move motor:
+   int inputAsInt = input.toInt();
+   
 
 }
 //
