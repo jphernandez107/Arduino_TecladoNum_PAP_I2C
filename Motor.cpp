@@ -49,6 +49,16 @@ void Motor::moveSteps(long relativeSteps) {
   }
   
   // send command to pololu to move steps:
+  // JJ
+
+  // update absoluteSteps
+  mPosInSteps += relativeSteps;
   
+  // update steps count for calibration:"
+  if (relativeSteps > 0) {
+    mTotalStepCount += relativeSteps;
+  } else {
+    mTotalStepCount -= relativeSteps;
+  }
 }
 
