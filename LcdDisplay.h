@@ -4,6 +4,7 @@
 
 #include <LiquidCrystal_I2C.h>
 #include "Arduino.h"
+#include <Wire.h>
 
 
 #define TYPE 0x27
@@ -14,9 +15,11 @@ class LcdDisplay {
   private:
     LiquidCrystal_I2C mLcd;
     bool mUseSerial = false;
+    
   public:
     LcdDisplay(bool useSerial);
     void print(String msg1, String msg2);
+    void init();
 };
 
 

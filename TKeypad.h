@@ -19,7 +19,7 @@ class TKeypad{
       const char CHAR_CLEAR = '*';
       Keypad mKeypad;
       bool mUseSerial = false;
-      char getKeyFromSerial();
+      //char getKeyFromSerial();
   public:
     TKeypad(LcdDisplay *lcd, boolean useSerial);
     String getInput();

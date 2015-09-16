@@ -14,19 +14,29 @@ Motor::Motor(OpticalSensor *sensor, int pinSteps, int pinReset, int pinDirection
 
 
 void Motor::calibrate() {
+
+  //Pasar a lcdDisplay
   Serial.write("Calibrating");
 
 // hack debug testing:
-bool sensorFound = true;
-//  bool sensorFound = mSensor->getStatus();
+//bool sensorFound = true;
+  bool sensorFound = mSensor->getStatus();
   while(!sensorFound) {
-    moveSteps(1, 1, 1);
+    moveSteps(1, 1, 10);
     sensorFound = mSensor->getStatus();
   }
    mTotalStepCount = 0;
 }
 
 void Motor::moveTo(int absolutePosMM, int speed) {
+
+  //debug
+  Serial.println("moveTo:");
+  Serial.println(absolutePosMM);
+  //Serial.println();
+  Serial.println(speed);
+
+  
   boolean result = false;
   long desiredPosInSteps = absolutePosMM * INT_STEPS_PER_MM;
   
@@ -51,29 +61,37 @@ void Motor::moveTo(int absolutePosMM, int speed) {
 
 // speed is value between 1 and 100
 void Motor::moveSteps(long relativeSteps, int dir, int speed) {
+
+  //debug
+  Serial.println("moveSteps:");
+  Serial.println(relativeSteps);
+  Serial.println(dir);
+  Serial.println(speed);
   
   // check if we need calibration
-  if (mTotalStepCount >= LNG_SETP_LIMIT) {
-    calibrate();
-  }
+  //if (mTotalStepCount >= LNG_SETP_LIMIT) {
+    //calibrate();
+  //}
   
 
   digitalWrite(mPinReset, LOW);   //Mientras reset este en LOW el motor permanecerá apagado y no sufrirá. El chip apagará todos los puertos y no leerá comandos.
   delay(100);
   digitalWrite(mPinReset, HIGH);   //Cuando reset se encuentre en HIGH el motor arrancará y leerá los comandos enviados.
-  digitalWrite(mPinDir, LOW);
+  if(dir > 0){
+    digitalWrite(mPinDir, LOW);
+  }else if(dir < 0){
+    digitalWrite(mPinDir, HIGH);
+    }
+  
 
-  for (long i = 0; i<=relativeSteps; i++)       //Equivale al numero de vueltas (200 es 360º grados) o micropasos
+  for (long i = 0; i<relativeSteps; i++)       //Equivale al numero de vueltas (200 es 360º grados) o micropasos
   {
-    //debug
-    Serial.print("Moving step ");
-    Serial.print(mPosInSteps);
-    Serial.print("\n");
+    
     if (dir > 0) {
       digitalWrite(mPinSteps, HIGH);
       digitalWrite(mPinSteps, LOW);
       mPosInSteps++;
-    } else {
+    } else if(dir < 0){
       digitalWrite(mPinSteps, LOW);
       digitalWrite(mPinSteps, HIGH);
       mPosInSteps--;
@@ -85,7 +103,7 @@ void Motor::moveSteps(long relativeSteps, int dir, int speed) {
   }
 
   // update absoluteSteps
-  mPosInSteps += relativeSteps;
+  //mPosInSteps += relativeSteps;
   
   // update steps count for calibration:"
   

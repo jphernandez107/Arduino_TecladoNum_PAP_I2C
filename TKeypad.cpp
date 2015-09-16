@@ -11,11 +11,15 @@ String TKeypad::getInput() {
 
   while (count < INPUT_CHAR_NUMBER + 1) {
     mLcdDisplay->print("Enter digits:", result);
-    if (mUseSerial) {
-      mLastChar = getKeyFromSerial();
-    } else {
-      mLastChar = mKeypad.getKey();
-    }
+    //Serial.println("Enter digits :" + result);
+       mLastChar = mKeypad.getKey();
+    if(mLastChar != NO_KEY){
+   // if (mUseSerial) {
+      //mLastChar = getKeyFromSerial();
+   // } else {
+
+      
+  //  }
     // the last char should be ignored if
     if (mLastChar == CHAR_OK) {
       if (count >0) {
@@ -29,6 +33,7 @@ String TKeypad::getInput() {
     } else if (mLastChar == CHAR_CLEAR){
       // reset everything...
       mLcdDisplay->print("", "Cleared");
+      Serial.println("Cleared");
       result = "";
       count = 0;
       mLastChar = 'z';
@@ -42,13 +47,14 @@ String TKeypad::getInput() {
     
 
   }
+  }
 
   // Reset last char to anything.
   mLastChar = 'z';
   return result;
 }
 
-char TKeypad::getKeyFromSerial() {
+/*char TKeypad::getKeyFromSerial() {
   char value = 'x';
   while (!Serial.available()) {
     delay(100);
@@ -56,5 +62,5 @@ char TKeypad::getKeyFromSerial() {
 
   value = Serial.read();
   return value;
-}
+}*/
 

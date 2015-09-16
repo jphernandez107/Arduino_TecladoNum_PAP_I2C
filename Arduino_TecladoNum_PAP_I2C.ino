@@ -15,13 +15,14 @@
 
 OpticalSensor sensor1(PIN_SENSOR1);
 Motor motor1(&sensor1, PIN_MOTOR_STEPS, PIN_MOTOR_RESET, PIN_MOTOR_DIR, MOTOR_MAX_STEPS_PER_SECOND);
-LcdDisplay *lcdDisplay = new LcdDisplay(true);
-TKeypad tKeypad(lcdDisplay, true);
+LcdDisplay *lcdDisplay = new LcdDisplay(false);
+TKeypad tKeypad(lcdDisplay, false);
 
 
 void setup() {
 // debug
 Serial.begin(9600);
+lcdDisplay->init();
 }
 
 void loop() {
