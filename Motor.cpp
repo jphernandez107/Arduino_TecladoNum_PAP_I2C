@@ -1,11 +1,12 @@
 #include "Motor.h"
 
-Motor::Motor(OpticalSensor *sensor, int pinSteps, int pinReset, int pinDirection, int maxStepsPerSecond) {
+Motor::Motor(LcdDisplay *lcdDisplay, OpticalSensor *sensor, int pinSteps, int pinReset, int pinDirection, int maxStepsPerSecond) {
   mSensor = sensor;
   mPinSteps = pinSteps;
   mPinReset = pinReset;
   mPinDir = pinDirection;
   mMaxStepsPerSecond = maxStepsPerSecond;
+  mLcdDisplay = lcdDisplay;
   pinMode(mPinSteps, OUTPUT); 
   pinMode(mPinDir, OUTPUT); 
   pinMode(mPinReset, OUTPUT);  
@@ -16,21 +17,24 @@ Motor::Motor(OpticalSensor *sensor, int pinSteps, int pinReset, int pinDirection
 void Motor::calibrate() {
 
   //Pasar a lcdDisplay
-  Serial.write("Calibrating");
+  mLcdDisplay->printMsg1("Calibrating       ");
+  mLcdDisplay->printMsg2("Please Wait       ");
 
 // hack debug testing:
-//bool sensorFound = true;
-  bool sensorFound = mSensor->getStatus();
-  while(!sensorFound) {
-    moveSteps(1, 1, 10);
+  bool sensorFound = true;
+//  bool sensorFound = mSensor->getStatus();
+  while(!sensorFound) {    
     sensorFound = mSensor->getStatus();
+    moveSteps(5, -1, 100);
   }
    mTotalStepCount = 0;
 }
 
 void Motor::moveTo(int absolutePosMM, int speed) {
+    mLcdDisplay->printMsg1("Moving            ");
+    mLcdDisplay->printMsg2("Warning!          ");
 
-  //debug
+  //debug--------------------------------------
   Serial.println("moveTo:");
   Serial.println(absolutePosMM);
   //Serial.println();
@@ -50,19 +54,19 @@ void Motor::moveTo(int absolutePosMM, int speed) {
     dir = -1;
   }
   moveSteps(stepsToMove, dir, speed);
-  // debug:
+  // debug:---------------------------------------
   String one = "Moving ";
   String two = " final pos in steps: ";
   String three = "\n";
-  String debugString = one + stepsToMove + two + mPosInSteps + three ;
-  
+  String debugString = one + stepsToMove + two + mPosInSteps + three ;  
   Serial.print(debugString);
+
 }
 
 // speed is value between 1 and 100
 void Motor::moveSteps(long relativeSteps, int dir, int speed) {
 
-  //debug
+  //debug----------------------------------------
   Serial.println("moveSteps:");
   Serial.println(relativeSteps);
   Serial.println(dir);
@@ -100,13 +104,7 @@ void Motor::moveSteps(long relativeSteps, int dir, int speed) {
     long delayTime = (1000000/mMaxStepsPerSecond) * 100 / speed;
     delayMicroseconds(delayTime);     // Regula la velocidad, cuanto mas bajo mas velocidad.
 
-  }
-
-  // update absoluteSteps
-  //mPosInSteps += relativeSteps;
-  
-  // update steps count for calibration:"
-  
+  } 
   mTotalStepCount += abs(relativeSteps);
 }
 

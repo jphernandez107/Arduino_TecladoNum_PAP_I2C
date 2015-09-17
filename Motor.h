@@ -1,6 +1,7 @@
 #ifndef Motor_h
 #define Motor_h
 #include "OpticalSensor.h"
+#include "LcdDisplay.h"
 
 
 class Motor{
@@ -15,11 +16,12 @@ class Motor{
     long mTotalStepCount = LNG_SETP_LIMIT;
     int mMaxStepsPerSecond = 1000;
     OpticalSensor *mSensor;
-    void calibrate();
     void moveSteps(long relativeSteps, int dir, int speed);
+    LcdDisplay *mLcdDisplay;
   public:
-    Motor(OpticalSensor *sensor, int pinSteps, int pinReset, int pinDireccion, int maxStepsPerSecond);
-    void moveTo(int mmToMove, int speed);
+    Motor(LcdDisplay *lcd, OpticalSensor *sensor, int pinSteps, int pinReset, int pinDireccion, int maxStepsPerSecond);
+    void moveTo(int mmToMove, int speed);    
+    void calibrate();
   };
 
 #endif

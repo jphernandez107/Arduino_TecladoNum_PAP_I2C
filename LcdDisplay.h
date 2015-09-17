@@ -18,7 +18,8 @@ class LcdDisplay {
     
   public:
     LcdDisplay(bool useSerial);
-    void print(String msg1, String msg2);
+    void printMsg1(String msg1);
+    void printMsg2(String msg2);
     void init();
 };
 

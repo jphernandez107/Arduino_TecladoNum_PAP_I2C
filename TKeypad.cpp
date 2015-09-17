@@ -10,7 +10,8 @@ String TKeypad::getInput() {
   int count = 0;
 
   while (count < INPUT_CHAR_NUMBER + 1) {
-    mLcdDisplay->print("Enter digits:", result);
+    mLcdDisplay->printMsg1("Enter digits:");
+    mLcdDisplay->printMsg2(result + "           ");
     //Serial.println("Enter digits :" + result);
        mLastChar = mKeypad.getKey();
     if(mLastChar != NO_KEY){
@@ -28,18 +29,19 @@ String TKeypad::getInput() {
         break;
       } else {
         //ignore an OK with no number
-        mLcdDisplay->print("Enter digits:", "(At least 1 digit)");
+        mLcdDisplay->printMsg1("Enter digits:       ");
+        mLcdDisplay->printMsg2("At least 1 digit");
       }
     } else if (mLastChar == CHAR_CLEAR){
       // reset everything...
-      mLcdDisplay->print("", "Cleared");
-      Serial.println("Cleared");
+      mLcdDisplay->printMsg2("Cleared      ");
       result = "";
       count = 0;
       mLastChar = 'z';
+      delay(1000);
     } else if(count == INPUT_CHAR_NUMBER) {
       // entered the max numbers already  and no OK given.. warn and ignore
-       mLcdDisplay->print("", "Please enter OK or CLEAR");
+       mLcdDisplay->printMsg2("Enter OK or CLEAR");
     } else {
       result += mLastChar;
       count++;
@@ -54,13 +56,4 @@ String TKeypad::getInput() {
   return result;
 }
 
-/*char TKeypad::getKeyFromSerial() {
-  char value = 'x';
-  while (!Serial.available()) {
-    delay(100);
-  }
-
-  value = Serial.read();
-  return value;
-}*/
 

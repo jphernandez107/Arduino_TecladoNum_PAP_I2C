@@ -6,26 +6,19 @@ LcdDisplay::LcdDisplay(bool useSerial) : mLcd(TYPE,COLS,ROWS) {
 }
 
 void LcdDisplay::init(){
-  mLcd.begin();
-  
+  mLcd.begin();  
   }
-void LcdDisplay::print(String msg1, String msg2) {
-  if(mUseSerial) {
-    
-    Serial.print(msg1);
-    Serial.print('\n');
-    Serial.print(msg2);
-    Serial.print('\n');
-  } else {
+void LcdDisplay::printMsg1(String msg1) {  
     // JJ
-    // put code to print two lines in the LCD: msg1 and msg2
-    //mLcd.begin();
-    //mLcd.clear();
-    mLcd.setCursor(0,0);
-    mLcd.print(msg1);
-    mLcd.setCursor(0,1);
-    mLcd.print(msg2);
-  }
+    // put code to print two lines in the LCD: msg1 and msg2  
+  mLcd.setCursor(0,0);
+  mLcd.print(msg1);
+}
+
+void LcdDisplay::printMsg2(String msg2){
+
+  mLcd.setCursor(0,1);
+  mLcd.print(msg2);
 }
 
 

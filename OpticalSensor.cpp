@@ -10,7 +10,7 @@ bool OpticalSensor::getStatus() {
 	int sensorValue = analogRead(mPin);
 	float voltage = sensorValue * (5.0 / 1023.0);
 
-	if((voltage >= 0.21) && (voltage <= 5.0)){
+	if((voltage >= 0.21) && (voltage <= 7.0)){
     	mStatus == true;
     }
   	else{

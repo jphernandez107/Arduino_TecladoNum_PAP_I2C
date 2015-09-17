@@ -6,7 +6,7 @@
 #include "TKeypad.h"
 #include <Wire.h>
 
-#define PIN_SENSOR1 0
+#define PIN_SENSOR1 A0
 #define PIN_MOTOR_STEPS 2
 #define PIN_MOTOR_RESET 4
 #define PIN_MOTOR_DIR 3
@@ -14,8 +14,8 @@
 #define DEBUG_FLAG 1
 
 OpticalSensor sensor1(PIN_SENSOR1);
-Motor motor1(&sensor1, PIN_MOTOR_STEPS, PIN_MOTOR_RESET, PIN_MOTOR_DIR, MOTOR_MAX_STEPS_PER_SECOND);
 LcdDisplay *lcdDisplay = new LcdDisplay(false);
+Motor motor1(lcdDisplay, &sensor1, PIN_MOTOR_STEPS, PIN_MOTOR_RESET, PIN_MOTOR_DIR, MOTOR_MAX_STEPS_PER_SECOND);
 TKeypad tKeypad(lcdDisplay, false);
 
 
@@ -23,6 +23,7 @@ void setup() {
 // debug
 Serial.begin(9600);
 lcdDisplay->init();
+motor1.calibrate();
 }
 
 void loop() {
